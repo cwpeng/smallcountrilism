@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Nav from "./nav/nav.js";
-import "./app.css";
+import AppContextInterface from "./App-Context.js";
+import Nav from "./nav/Nav.js";
 class App extends React.Component{
 	constructor(props){
 		super(props);
@@ -37,10 +36,12 @@ class App extends React.Component{
 			return <div>Loading</div>
 		}
 		return <>
-			<Nav chapters={this.state.catalog.chapters} />
-			<main>Main</main>
-			<footer>Footer</footer>
+			<AppContextInterface>
+				<Nav chapters={this.state.catalog.chapters} />
+				<main>Main</main>
+				<footer>Footer</footer>
+			</AppContextInterface>
 		</>;
 	}
 }
-ReactDOM.render(<App/>, document.querySelector("#root"));
+export default App;

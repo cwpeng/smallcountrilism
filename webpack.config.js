@@ -3,7 +3,7 @@ const serverConfig={
 	target:"node",
 	mode:"development",
 	watch:false,
-	entry:"./src/server-lib.js",
+	entry:"./src/server/lib.js",
 	output:{
 		libraryTarget:"commonjs-module",
 		path:path.resolve(__dirname, ""),
@@ -29,8 +29,8 @@ const clientConfig={
 	mode:"development",
 	watch:false,
 	entry:{
-		index:"./src/index.js",
-		mgr:"./src/mgr.js"
+		index:"./src/client/index.js",
+		mgr:"./src/client/mgr.js"
 	},
 	output:{
 		path:path.resolve(__dirname, "static"),
