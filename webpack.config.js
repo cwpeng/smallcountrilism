@@ -1,9 +1,13 @@
 const path=require("path");
-module.exports={
-	entry:"./src/app.js",
+const serverConfig={
+	target:"node",
+	mode:"development",
+	watch:false,
+	entry:"./src/server-lib.js",
 	output:{
-		path:path.resolve(__dirname, "views"),
-		filename:"app.js"
+		libraryTarget:"commonjs-module",
+		path:path.resolve(__dirname, ""),
+		filename:"server-lib.js"
 	},
 	module:{
 		rules:[
@@ -20,3 +24,31 @@ module.exports={
 		]
 	}
 };
+const clientConfig={
+	target:"web",
+	mode:"development",
+	watch:false,
+	entry:{
+		index:"./src/index.js",
+		mgr:"./src/mgr.js"
+	},
+	output:{
+		path:path.resolve(__dirname, "static"),
+		filename:"[name].js"
+	},
+	module:{
+		rules:[
+			{
+				test:/\.js$/,
+				exclude:/node_modules/,
+				use:["babel-loader"]
+			},
+			{
+				test:/\.css$/,
+				exclude:/node_modules/,
+				use:["style-loader", "css-loader"]
+			}
+		]
+	}
+};
+module.exports=[serverConfig, clientConfig];

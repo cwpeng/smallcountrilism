@@ -61,4 +61,4 @@ typings/
 .next
 
 # webpack build output
-views/app.js
+static/*.js
