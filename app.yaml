@@ -7,9 +7,6 @@ automatic_scaling:
   max_pending_latency: 15.0s
 
 handlers:
-  - url: /public
-    static_dir: public
-    expiration: 14d
   - url: /.*
     secure: always
     redirect_http_response_code: 301

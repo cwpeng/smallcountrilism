@@ -33,7 +33,7 @@ const clientConfig={
 		mgr:"./src/client/mgr.js"
 	},
 	output:{
-		path:path.resolve(__dirname, "static"),
+		path:path.resolve(__dirname, "public"),
 		filename:"[name].js"
 	},
 	module:{

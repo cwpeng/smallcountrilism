@@ -11,7 +11,7 @@ const bodyParser=require("body-parser");
 let app=express();
 app.set("views", "./views");
 app.set("view engine", "ejs");
-app.use(express.static("static"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 // API first
@@ -85,8 +85,11 @@ app.get("/mgr/", function(req, res){
 	res.render("mgr");
 });
 app.get("/:chapter?/:section?/:story?", function(req, res){
-	const root=lib.render(req.params);
-	res.render("index", {root:root+JSON.stringify(lib.dao)});
+	const root=lib.render(datastore, req.params).then((data)=>{
+		res.render("index", data);
+	}).catch((error)=>{
+		res.render("index", {root:error});
+	});
 });
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT=process.env.PORT||8080;

@@ -7,9 +7,13 @@
 <meta property="og:image" content="https://youtuber.pada-x.com/images/icon.png" />
 <title>小國主義</title>
 <link rel="icon" type="image/png" href="images/icon-16.png" />
+<link rel="stylesheet" type="text/css" href="styles/index.css" />
+<script>
+window.__INIT_DATA__=<%- JSON.stringify(initData) %>;
+</script>
 </head>
 <body>
-	<div id="root"><%= root %></div>
-	<script src="/index.js"></script>
+	<div id="root"><%- root %></div>
+	<script src="/index.js?update=5"></script>
 </body>
 </html>

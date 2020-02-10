@@ -61,5 +61,5 @@ typings/
 .next
 
 # webpack build output
-static/*.js
+public/*.js
 server-lib.js
