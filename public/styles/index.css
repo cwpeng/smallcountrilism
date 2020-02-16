@@ -7,14 +7,18 @@ body{
 	font-size:20px;font-family:"Microsoft JhengHei", Arial, sans-serif;
 	margin:0px;padding:0px;
 }
+h1, h2, h3, h4{
+	margin:0px;padding:0px;
+}
 #root{
 	--main-color:#222222;
 	--nav-bg-color:#222222;--nav-color:#eeeeee;
+	--nav-width:200px;
 }
 nav{
-	position:fixed;width:200px;height:100%;
+	position:fixed;width:var(--nav-width);height:100%;
 	background-color:var(--nav-bg-color);color:var(--nav-color);
 }
 main{
-	color:var(--main-color)
+	color:var(--main-color);margin-left:var(--nav-width);
 }

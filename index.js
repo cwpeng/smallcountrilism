@@ -88,7 +88,7 @@ app.get("/:chapter?/:section?/:story?", function(req, res){
 	const root=lib.render(datastore, req.params).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
-		res.render("index", {root:error});
+		res.render("error", {error});
 	});
 });
 // Listen to the App Engine-specified port, or 8080 otherwise

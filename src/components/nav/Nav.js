@@ -3,19 +3,12 @@ import {AppContext} from "../App-Context.js";
 class Nav extends React.Component{
 	constructor(props){
 		super(props);
-		this.state={
-			chapter:props.chapters[0].key
-		};
-		this.changeChapter=this.changeChapter.bind(this);
-	}
-	changeChapter(key){
-		this.setState({chapter:key});
 	}
 	render(){
-		let chapters=this.props.chapters.map((chapter)=>{
+		let chapters=this.context.chapters.map((chapter)=>{
 			return <div
-				style={{color:(chapter.key===this.state.chapter?"red":"black")}}
-				onClick={()=>{this.changeChapter(chapter.key);}}
+				style={{color:(chapter.key===this.context.page.chapter?"red":"black")}}
+				onClick={()=>{this.context.changeChapter(chapter.key);}}
 				className="chapter"
 				key={chapter.key}
 			>{chapter.title}</div>
