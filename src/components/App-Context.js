@@ -34,7 +34,8 @@ class AppContextInterface extends React.Component{
 		}
 		window.history.pushState(page, title, url);
 	}
-	changePage(page){
+	changePage(e, page){
+		e.preventDefault();
 		this.setState({page:{...this.state.page, ...page}}, this.pushToHistoryState);
 	}
 	render(){

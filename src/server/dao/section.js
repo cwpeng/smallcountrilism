@@ -1,25 +1,31 @@
 const section={
+	cache:null,
 	list:function(datastore){
 		return new Promise((resolve, reject)=>{
-			const query=datastore
-				.createQuery("Section")
-				.order("update_time", {
-					descending:true
+			if(this.cache===null){
+				const query=datastore
+					.createQuery("Section")
+					.order("update_time", {
+						descending:true
+					});
+				datastore.runQuery(query, (error, sectionEntities)=>{
+					if(error===null){
+						this.cache=sectionEntities.map((sectionEntity)=>{
+							const key=sectionEntity[datastore.KEY];
+							return {
+								key:key.path[key.path.length-1],
+								chapter:sectionEntity.chapter,
+								title:sectionEntity.title
+							};
+						});
+						resolve(this.cache);
+					}else{
+						reject(error);
+					}
 				});
-			datastore.runQuery(query, (error, sectionEntities)=>{
-				if(error===null){
-					resolve(sectionEntities.map((sectionEntity)=>{
-						const key=sectionEntity[datastore.KEY];
-						return {
-							key:key.path[key.path.length-1],
-							chapter:sectionEntity.chapter,
-							title:sectionEntity.title
-						};
-					}));
-				}else{
-					reject(error);
-				}
-			});
+			}else{
+				resolve(this.cache);
+			}
 		});
 	},
 	upsert:function(datastore, inputs){
@@ -34,6 +40,7 @@ const section={
 			};
 			datastore.upsert(sectionEntity, function(error, response){
 				if(error===null){
+					this.cache=null;
 					resolve();
 				}else{
 					reject(error);
