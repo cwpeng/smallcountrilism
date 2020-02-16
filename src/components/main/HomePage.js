@@ -5,7 +5,7 @@ class HomePage extends React.Component{
 	}
 	render(){
 		return <>
-			<h2>歡迎光臨小國主義</h2>
+			<h2>小國主義 (Smallcountrilism)</h2>
 		</>;
 	}
 }

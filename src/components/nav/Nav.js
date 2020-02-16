@@ -8,7 +8,7 @@ class Nav extends React.Component{
 		let chapters=this.context.chapters.map((chapter)=>{
 			return <div
 				style={{color:(chapter.key===this.context.page.chapter?"red":"black")}}
-				onClick={()=>{this.context.changeChapter(chapter.key);}}
+				onClick={()=>{this.context.changePage({chapter:chapter.key});}}
 				className="chapter"
 				key={chapter.key}
 			>{chapter.title}</div>

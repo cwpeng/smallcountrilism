@@ -8,8 +8,9 @@
 
 ## 技術目標
 
-Build a SPA with SSR, for best user experience and SEO.
+Build a SPA with SSR for best user experience and SEO.
 
 ### 關鍵架構
 
-Build shared React components for both backend and front-end.
+- Build shared React components for both backend and front-end.
+- Build history state management system.
