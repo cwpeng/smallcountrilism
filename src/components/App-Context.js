@@ -4,17 +4,22 @@ class AppContextInterface extends React.Component{
 	constructor(props){
 		super(props);
 		this.state=props;
+		this.popFromHistoryState=this.popFromHistoryState.bind(this);
 		this.pushToHistoryState=this.pushToHistoryState.bind(this);
 		this.changePage=this.changePage.bind(this);
 	}
 	componentDidMount(){
-		window.addEventListener("popstate", (e)=>{
-			const page=e.state;
-			if(page!==null){
-				this.setState({page:{chapter:page.chapter}});
-			}
-		});
+		window.addEventListener("popstate", this.popFromHistoryState);
 		this.pushToHistoryState();
+	}
+	componentWillUnmount(){
+		window.removeEventListener("popstate", this.popFromHistoryState);
+	}
+	popFromHistoryState(e){
+		const page=e.state;
+		if(page!==null){
+			this.setState({page});
+		}
 	}
 	pushToHistoryState(){
 		const page=this.state.page;
