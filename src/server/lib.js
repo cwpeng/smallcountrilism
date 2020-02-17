@@ -32,8 +32,8 @@ const render=function(datastore, inputs){
 				// build page data
 				const page={
 					...inputs,
-					stories:results[0], // maybe undefined
-					story:results[1] // maybe undefined
+					stories:results[0], // always exists
+					storyData:results[1] // maybe undefined
 				};
 				// render
 				const root=ReactDOMServer.renderToString(<App chapters={chapters} sections={sections} page={page} />);

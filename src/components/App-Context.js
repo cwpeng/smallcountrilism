@@ -36,7 +36,28 @@ class AppContextInterface extends React.Component{
 	}
 	changePage(e, page){
 		e.preventDefault();
-		this.setState({page:{...this.state.page, ...page}}, this.pushToHistoryState);
+		const pageChanged=(page.chapter!==this.state.page.chapter || page.section!==this.state.page.section || page.story!==this.state.page.story);
+		const storyChanged=(page.story && page.story!==this.state.page.story);
+		if(pageChanged){
+			let args=page.chapter?"chapter="+page.chapter+"&":"";
+			args+=page.section?"section="+page.section:"";
+			let promises=[fetch("/api/story?"+args).then((response)=>{
+				return response.json();
+			})];
+			if(storyChanged){
+				promises.push(fetch("/api/story/"+page.story).then((response)=>{
+					return response.json();
+				}));
+			}
+			// wait networking and set state
+			Promise.all(promises).then((results)=>{
+				const stories=results[0].data; // always exists
+				const storyResponse=results[1]; // maybe undefined
+				page.stories=stories;
+				page.storyData=storyResponse?storyResponse.data:undefined;
+				this.setState({page:{...this.state.page, ...page}}, this.pushToHistoryState);
+			});
+		}
 	}
 	render(){
 		return <AppContext.Provider value={{...this.state, changePage:this.changePage}}>

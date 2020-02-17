@@ -15,7 +15,7 @@ class Main extends React.Component{
 			const chapter=this.context.chapters.find((chapter)=>{
 				return chapter.key===this.context.page.chapter;
 			});
-			page=<ChapterPage chapter={chapter} sections={sections} stories={this.context.stories} />;
+			page=<ChapterPage chapter={chapter} sections={sections} stories={this.context.page.stories} />;
 		}else{
 			page=<HomePage/>;
 		}

@@ -80,11 +80,30 @@ app.post("/api/story", function(req, res){
 		res.send({error});
 	});
 });
+app.get("/api/story", function(req, res){
+	lib.dao.story.list(datastore, req.query).then((stories)=>{
+		res.send({data:stories});
+	}).catch((error)=>{
+		res.send({error});
+	});
+});
+app.get("/api/story/:key", function(req, res){
+	if(!req.params.key){
+		res.send({error:true});
+		return;
+	}
+	lib.dao.story.get(datastore, req.params.key).then((story)=>{
+		res.send({data:story});
+	}).catch((error)=>{
+		res.send({error});
+	});
+});
 // Pages after
 app.get("/mgr/", function(req, res){
 	res.render("mgr");
 });
 app.get("/:chapter?/:section?/:story?", function(req, res){
+	console.log("get pages", req.params);
 	const root=lib.render(datastore, req.params).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
