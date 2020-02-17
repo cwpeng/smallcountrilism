@@ -1,0 +1,9 @@
+nav>.chapters{
+	line-height:40px;
+}
+nav>.chapters>.chapter{
+	display:block;
+}
+nav>.chapters>.active{
+	color:var(--nav-color-active)
+}

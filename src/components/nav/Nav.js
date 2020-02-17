@@ -1,21 +1,25 @@
 import React from "react";
 import {AppContext} from "../App-Context.js";
+import Link from "../ui/Link.js";
 class Nav extends React.Component{
 	constructor(props){
 		super(props);
 	}
 	render(){
 		let chapters=this.context.chapters.map((chapter)=>{
-			return <a
-				style={{color:(chapter.key===this.context.page.chapter?"red":"black")}}
+			return <Link
+				active={chapter.key===this.context.page.chapter}
 				href={"/"+chapter.key}
-				onClick={(e)=>{this.context.changePage(e, {chapter:chapter.key, section:undefined, story:undefined});}}
+				page={{chapter:chapter.key, section:undefined, story:undefined}}
 				className="chapter"
 				key={chapter.key}
-			>{chapter.title}</a>
+				text={chapter.title}
+			/>;
 		});
 		return <nav>
-			{chapters}
+			<div className="chapters">
+				{chapters}
+			</div>
 		</nav>;
 	}
 }
