@@ -10,7 +10,7 @@ class Nav extends React.Component{
 			return <Link
 				active={chapter.key===this.context.page.chapter}
 				href={"/"+chapter.key}
-				page={{chapter:chapter.key, section:undefined, story:undefined}}
+				page={{chapter:chapter.key}}
 				className="chapter"
 				key={chapter.key}
 				text={chapter.title}

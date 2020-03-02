@@ -8,7 +8,7 @@ class App extends React.Component{
 			password:"",
 			chapters:[],
 			createChapter:{
-				key:"", title:"", abstract:""
+				key:"", title:"", description:""
 			},
 			createStory:{
 				chapter:"", tags:"", key:"", title:"", abstract:"", content:""
@@ -61,7 +61,7 @@ class App extends React.Component{
 				}, 3000);
 			}else{
 				this.setState({createChapter:{
-					key:"", title:"", abstract:""
+					key:"", title:"", description:""
 				}});
 			}
 		});
@@ -113,7 +113,7 @@ class App extends React.Component{
 			<form onSubmit={this.createChapter}>
 				Key <input type="text" data-field="key" value={this.state.createChapter.key} onChange={this.changeCreateChapterInput} /><br/>
 				Title <input type="text" data-field="title" value={this.state.createChapter.title} onChange={this.changeCreateChapterInput} /><br/>
-				Abstract <input type="text" data-field="abstract" value={this.state.createChapter.abstract} onChange={this.changeCreateChapterInput} /><br/>
+				Description <input type="text" data-field="description" value={this.state.createChapter.description} onChange={this.changeCreateChapterInput} /><br/>
 				<button>Create</button>
 			</form>
 			<h3>Create Story</h3>

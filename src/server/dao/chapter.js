@@ -14,7 +14,8 @@ const chapter={
 							const key=chapterEntity[datastore.KEY];
 							return {
 								key:key.path[key.path.length-1],
-								title:chapterEntity.title
+								title:chapterEntity.title,
+								description:chapterEntity.description
 							};
 						});
 						resolve(this.cache);
@@ -32,11 +33,11 @@ const chapter={
 			const chapterEntity={
 				key:datastore.key(["Chapter", inputs.key]),
 				excludeFromIndexes:[
-					"abstract"
+					"description"
 				],
 				data:{
 					title:inputs.title,
-					abstract:inputs.abstract,
+					description:inputs.description,
 					update_time:Date.now()
 				}
 			};

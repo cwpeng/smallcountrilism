@@ -13,7 +13,6 @@ const story={
 	list:function(datastore, inputs){
 		return new Promise((resolve, reject)=>{
 			let query=datastore.createQuery("Story");
-			let properties=["title", "abstract", "chapter", "tags", "update_time"];
 			if(inputs.chapter){
 				query=query.filter("chapter", "=", inputs.chapter);
 			}else if(inputs.tag){
@@ -21,7 +20,7 @@ const story={
 			}
 			query=query.order("update_time", {
 				descending:true
-			}).select(properties).limit(10);
+			}).limit(10);
 			datastore.runQuery(query, (error, storyEntities)=>{
 				if(error===null){
 					resolve(storyEntities.map((storyEntity)=>{

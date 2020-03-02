@@ -91,9 +91,29 @@ app.get("/api/story/:key", function(req, res){
 app.get("/mgr/", function(req, res){
 	res.render("mgr");
 });
-app.get("/:chapter?/:section?/:story?", function(req, res){
-	console.log("get pages", req.params);
-	const root=lib.render(datastore, req.params).then((data)=>{
+app.get("/", function(req, res){
+	const root=lib.renderer.renderHomePage(datastore).then((data)=>{
+		res.render("index", data);
+	}).catch((error)=>{
+		res.render("error", {error});
+	});
+});
+app.get("/tag/:tag?", function(req, res){
+	const root=lib.renderer.renderTagPage(datastore, req.params.tag).then((data)=>{
+		res.render("index", data);
+	}).catch((error)=>{
+		res.render("error", {error});
+	});
+});
+app.get("/story/:story?", function(req, res){
+	const root=lib.renderer.renderStoryPage(datastore, req.params.story).then((data)=>{
+		res.render("index", data);
+	}).catch((error)=>{
+		res.render("error", {error});
+	});
+});
+app.get("/:chapter?", function(req, res){
+	const root=lib.renderer.renderChapterPage(datastore, req.params.chapter).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
 		res.render("error", {error});

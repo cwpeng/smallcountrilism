@@ -4,12 +4,29 @@ import App from "../components/App.js";
 import {chapter} from "./dao/chapter.js";
 import {tag} from "./dao/tag.js";
 import {story} from "./dao/story.js";
-const render=function(datastore, inputs){
+const getChaptersAndTags=function(datastore){
+	return Promise.all([chapter.list(datastore), tag.list(datastore)]);
+};
+const renderHomePage=function(datastore){
 	return new Promise((resolve, reject)=>{
-		// get chapter and section data
-		Promise.all([chapter.list(datastore), tag.list(datastore)]).then((results)=>{
+		getChaptersAndTags(datastore).then((results)=>{
 			const chapters=results[0];
-			const sections=results[1];
+			const tags=results[1];
+			story.list(datastore, {}).then((results)=>{
+				const page={stories:results};
+				// render
+				const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
+				resolve({root, initData:{chapters, tags, page}});
+			}).catch((error)=>{
+				reject(error);
+			})
+		}).catch((error)=>{
+			reject(error);
+		});
+	});
+/*
+			const chapters=results[0];
+			const tags=results[1];
 			// verify input data
 			// verify chapter
 			if(chapters.findIndex((chapter)=>{
@@ -45,6 +62,8 @@ const render=function(datastore, inputs){
 			reject(error);
 		});
 	});
+*/
 };
 const dao={chapter, tag, story};
-export {render, dao};
+const renderer={renderHomePage};
+export {renderer, dao};

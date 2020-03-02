@@ -24,24 +24,22 @@ class AppContextInterface extends React.Component{
 	pushToHistoryState(){
 		const page=this.state.page;
 		let url="/";
-		let title="";
+		let title="小國主義";
 		if(page.chapter){
 			url+=page.chapter;
-			title+=page.chapter;
-			if(page.section){
-				url+="/"+page.section;
-				title=page.section+" | "+title;
-				if(page.story){
-					url+="/"+page.story;
-					title=page.story+" | "+title;
-				}
-			}
+			title=page.chapter+" | "+title;
+		}else if(page.tag){
+			url+="tag/"+page.tag;
+			title=page.tag+" | "+title;
+		}else if(page.story){
+			url+="story/"+page.story;
+			title=page.story+" | "+title;
 		}
 		window.history.pushState(page, title, url);
 	}
 	changePage(e, page){
 		e.preventDefault();
-		const pageChanged=(page.chapter!==this.state.page.chapter || page.section!==this.state.page.section || page.story!==this.state.page.story);
+		const pageChanged=(page.chapter!==this.state.page.chapter || page.tag!==this.state.page.tag || page.story!==this.state.page.story);
 		const storyChanged=(page.story && page.story!==this.state.page.story);
 		if(pageChanged){
 			let args=page.chapter?"chapter="+page.chapter+"&":"";

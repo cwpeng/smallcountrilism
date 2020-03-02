@@ -11,26 +11,12 @@ class Main extends React.Component{
 	render(){
 		let page;
 		if(this.context.page.chapter){
-			const sections=this.context.sections.filter((section)=>{
-				return section.chapter===this.context.page.chapter;
-			});
 			const chapter=this.context.chapters.find((chapter)=>{
 				return chapter.key===this.context.page.chapter;
 			});
-			if(this.context.page.section){
-				const section=this.context.sections.find((section)=>{
-					return section.key===this.context.page.section;
-				});
-				if(this.context.page.story){ // story page
-					page=<StoryPage chapter={chapter} sections={sections} section={section} stories={this.context.page.stories} storyData={this.context.page.storyData} />
-				}else{ // section page
-					page=<SectionPage chapter={chapter} sections={sections} section={section} stories={this.context.page.stories} />;
-				}
-			}else{ // chapter page
-				page=<ChapterPage chapter={chapter} sections={sections} stories={this.context.page.stories} />;
-			}
+			page=<ChapterPage chapter={chapter} stories={this.context.page.stories} />;
 		}else{ // home page
-			page=<HomePage/>;
+			page=<HomePage stories={this.context.page.stories} />;
 		}
 		return <main>
 			{page}
