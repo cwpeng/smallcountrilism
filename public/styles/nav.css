@@ -1,5 +1,9 @@
+nav>.headline{
+	color:var(--nav-headline-color)
+}
 nav>.chapters{
 	line-height:40px;
+	margin-top:15px;
 }
 nav>.chapters>.chapter{
 	display:block;

@@ -25,7 +25,7 @@ app.get("/api/chapter", function(req, res){
 });
 app.post("/api/chapter", function(req, res){
 	const inputs=req.body;
-	if(!inputs.key || !inputs.title){
+	if(!inputs.key || !inputs.title || !inputs.abstract){
 		res.send({error:true});
 		return;
 	}
@@ -39,26 +39,10 @@ app.post("/api/chapter", function(req, res){
 		res.send({error});
 	});
 });
-// Section data
-app.get("/api/section", function(req, res){
-	lib.dao.section.list(datastore).then((data)=>{
+// Tag data
+app.get("/api/tag", function(req, res){
+	lib.dao.tag.list(datastore).then((data)=>{
 		res.send({data});
-	}).catch((error)=>{
-		res.send({error});
-	});
-});
-app.post("/api/section", function(req, res){
-	const inputs=req.body;
-	if(!inputs.chapter || !inputs.key || !inputs.title){
-		res.send({error:true});
-		return;
-	}
-	if(inputs.password!==cst.MANAGEMENT_PASSWORD){
-		res.send({error:"Invalid Password"});
-		return;
-	}
-	lib.dao.section.upsert(datastore, inputs).then(()=>{
-		res.send({ok:true});
 	}).catch((error)=>{
 		res.send({error});
 	});
@@ -66,7 +50,7 @@ app.post("/api/section", function(req, res){
 // Story data
 app.post("/api/story", function(req, res){
 	const inputs=req.body;
-	if(!inputs.chapter || !inputs.section || !inputs.key || !inputs.title || !inputs.abstract || !inputs.content){
+	if(!inputs.chapter || !inputs.tags || !inputs.key || !inputs.title || !inputs.abstract || !inputs.content){
 		res.send({error:true});
 		return;
 	}
@@ -74,8 +58,13 @@ app.post("/api/story", function(req, res){
 		res.send({error:"Invalid Password"});
 		return;
 	}
+	inputs.tags=inputs.tags.split(",");
 	lib.dao.story.upsert(datastore, inputs).then(()=>{
-		res.send({ok:true});
+		lib.dao.tag.upsert(datastore, inputs.tags).then(()=>{
+			res.send({ok:true});
+		}).catch((error)=>{
+			res.send({error});
+		});
 	}).catch((error)=>{
 		res.send({error});
 	});

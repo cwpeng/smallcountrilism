@@ -17,6 +17,14 @@ class Nav extends React.Component{
 			/>;
 		});
 		return <nav>
+			<h1 className="headline"><Link
+					active={!this.context.page.chapter}
+					href="/"
+					page={{chapter:undefined, section:undefined, story:undefined}}
+					className=""
+					text="小國主義"
+				/>
+			</h1>
 			<div className="chapters">
 				{chapters}
 			</div>

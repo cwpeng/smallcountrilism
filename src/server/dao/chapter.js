@@ -31,12 +31,16 @@ const chapter={
 		return new Promise((resolve, reject)=>{
 			const chapterEntity={
 				key:datastore.key(["Chapter", inputs.key]),
+				excludeFromIndexes:[
+					"abstract"
+				],
 				data:{
 					title:inputs.title,
+					abstract:inputs.abstract,
 					update_time:Date.now()
 				}
 			};
-			datastore.upsert(chapterEntity, function(error, response){
+			datastore.upsert(chapterEntity, (error, response)=>{
 				if(error===null){
 					this.cache=null;
 					resolve();

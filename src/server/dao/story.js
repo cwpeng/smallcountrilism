@@ -13,16 +13,11 @@ const story={
 	list:function(datastore, inputs){
 		return new Promise((resolve, reject)=>{
 			let query=datastore.createQuery("Story");
-			let properties=["title", "abstract", "update_time"];
+			let properties=["title", "abstract", "chapter", "tags", "update_time"];
 			if(inputs.chapter){
 				query=query.filter("chapter", "=", inputs.chapter);
-				if(inputs.section){
-					query=query.filter("section", "=", inputs.section);
-				}else{
-					properties.push("section");
-				}
-			}else{
-				properties.push("chapter", "section");
+			}else if(inputs.tag){
+				query=query.filter("tags", "=", inputs.tag);
 			}
 			query=query.order("update_time", {
 				descending:true
@@ -36,8 +31,8 @@ const story={
 							title:storyEntity.title,
 							abstract:storyEntity.abstract,
 							update_time:storyEntity.update_time,
-							chapter:storyEntity.chapter?storyEntity.chapter:inputs.chapter,
-							section:storyEntity.section?storyEntity.section:inputs.section
+							chapter:storyEntity.chapter,
+							tags:storyEntity.tags
 						};
 					}));
 				}else{
@@ -55,7 +50,7 @@ const story={
 				],
 				data:{
 					chapter:inputs.chapter,
-					section:inputs.section,
+					tags:inputs.tags,
 					title:inputs.title,
 					abstract:inputs.abstract,
 					content:inputs.content,

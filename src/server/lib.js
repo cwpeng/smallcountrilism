@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import App from "../components/App.js";
 import {chapter} from "./dao/chapter.js";
-import {section} from "./dao/section.js";
+import {tag} from "./dao/tag.js";
 import {story} from "./dao/story.js";
 const render=function(datastore, inputs){
 	return new Promise((resolve, reject)=>{
 		// get chapter and section data
-		Promise.all([chapter.list(datastore), section.list(datastore)]).then((results)=>{
+		Promise.all([chapter.list(datastore), tag.list(datastore)]).then((results)=>{
 			const chapters=results[0];
 			const sections=results[1];
 			// verify input data
@@ -46,5 +46,5 @@ const render=function(datastore, inputs){
 		});
 	});
 };
-const dao={chapter, section, story};
+const dao={chapter, tag, story};
 export {render, dao};

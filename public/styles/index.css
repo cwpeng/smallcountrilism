@@ -16,6 +16,8 @@ a{
 }
 #root{
 	--main-color:#222222;
+
+	--nav-headline-color:#ffffff;
 	--nav-bg-color:#222222;--nav-color:#888888;--nav-color-active:#eeeeee;
 	--nav-width:200px;
 }
