@@ -39,28 +39,28 @@ class AppContextInterface extends React.Component{
 	}
 	changePage(e, page){
 		e.preventDefault();
-		const pageChanged=(page.chapter!==this.state.page.chapter || page.tag!==this.state.page.tag || page.story!==this.state.page.story);
-		const storyChanged=(page.story && page.story!==this.state.page.story);
-		if(pageChanged){
-			let args=page.chapter?"chapter="+page.chapter+"&":"";
-			args+=page.section?"section="+page.section:"";
-			let promises=[fetch("/api/story?"+args).then((response)=>{
-				return response.json();
-			})];
-			if(storyChanged){
-				promises.push(fetch("/api/story/"+page.story).then((response)=>{
-					return response.json();
-				}));
-			}
-			// wait networking and set state
-			Promise.all(promises).then((results)=>{
-				const stories=results[0].data; // always exists
-				const storyResponse=results[1]; // maybe undefined
-				page.stories=stories;
-				page.storyData=storyResponse?storyResponse.data:undefined;
-				this.setState({page:{...this.state.page, ...page}}, this.pushToHistoryState);
-			});
+		const isSamePage=(page.chapter===this.state.page.chapter && page.tag===this.state.page.tag && page.story===this.state.page.story);
+		if(isSamePage){
+			return;
 		}
+		let args;
+		if(page.chapter){
+			args="chapter="+page.chapter;
+		}else if(page.tag){
+			args="tag="+page.tag;
+		}else if(page.story){
+			args="story="+page.story;
+		}else{ // homepage
+			args="";
+		}
+		// wait networking and set state
+		fetch("/api/story?"+args).then((response)=>{
+			return response.json();
+		}).then((result)=>{
+			page.stories=result.data.stories; // always exists
+			page.storyData=result.data.storyData; // maybe undefined
+			this.setState({page}, this.pushToHistoryState);
+		});
 	}
 	render(){
 		return <AppContext.Provider value={{...this.state, changePage:this.changePage}}>

@@ -4,8 +4,9 @@ html{
 }
 body{
 	width:100%;height:100%;
-	font-size:20px;font-family:"Microsoft JhengHei", Arial, sans-serif;
 	margin:0px;padding:0px;
+	font-size:24px;font-family:"Microsoft JhengHei", Arial, sans-serif;
+	letter-spacing:2px;
 }
 h1, h2, h3, h4{
 	margin:0px;padding:0px;
@@ -29,4 +30,49 @@ nav{
 main{
 	color:var(--main-color);margin-left:var(--nav-width);
 	padding:10px 20px;box-sizing:border-box;
+}
+@media (max-width:800px){
+	nav{
+		left:calc(-1 * var(--nav-width))
+	}
+	main{
+		margin-left:0px;
+	}
+}
+/* .description */
+main>.description{
+	margin-top:10px;margin-bottom:25px;
+	line-height:1.5em;
+}
+/* section.imagery */
+main>section.imagery{
+	display:flex;width:100%;max-width:1000px;
+}
+main>section.imagery>.logo{
+	flex:1;
+}
+main>section.imagery>.logo>img{
+	width:100%;border:1px solid black;
+}
+main>section.imagery>.text{
+	flex:1;margin-left:20px;
+	line-height:1.5em;
+}
+@media (max-width:800px){
+	main>section.imagery{
+		flex-wrap:wrap;
+	}
+	main>section.imagery>.logo{
+		flex:none;width:100%;
+	}
+	main>section.imagery>.text{
+		flex:none;width:100%;margin-left:0px;
+	}
+}
+/* section.articles */
+main>section.articles>article>.title{
+	margin-bottom:10px;
+}
+main>section.articles>article>.abstract{
+	line-height:1.5em;
 }

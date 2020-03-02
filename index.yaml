@@ -1,1 +1,6 @@
 indexes:
+- kind: Story
+  properties:
+    - name: chapter
+    - name: update_time
+      direction: desc

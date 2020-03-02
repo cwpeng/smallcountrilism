@@ -70,22 +70,23 @@ app.post("/api/story", function(req, res){
 	});
 });
 app.get("/api/story", function(req, res){
-	lib.dao.story.list(datastore, req.query).then((stories)=>{
-		res.send({data:stories});
-	}).catch((error)=>{
-		res.send({error});
-	});
-});
-app.get("/api/story/:key", function(req, res){
-	if(!req.params.key){
-		res.send({error:true});
-		return;
+	if(req.query.story){ // get single story first, then get story list based on single story's chapter
+		lib.dao.story.get(datastore, req.query.story).then((storyData)=>{
+			lib.dao.story.list(datastore, {chapter:storyData.chapter}).then((stories)=>{
+				res.send({data:{stories, storyData}});
+			}).catch((error)=>{
+				res.send({error});
+			});
+		}).catch((error)=>{
+			res.send({error});
+		});
+	}else{ // get story list by chapter or tag or all
+		lib.dao.story.list(datastore, req.query).then((stories)=>{
+			res.send({data:{stories}});
+		}).catch((error)=>{
+			res.send({error});
+		});
 	}
-	lib.dao.story.get(datastore, req.params.key).then((story)=>{
-		res.send({data:story});
-	}).catch((error)=>{
-		res.send({error});
-	});
 });
 // Pages after
 app.get("/mgr/", function(req, res){

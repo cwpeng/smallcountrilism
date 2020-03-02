@@ -4,16 +4,16 @@ class HomePage extends React.Component{
 		super(props);
 	}
 	render(){
-		const stories=this.props.stories.map((story)=>{
-			return <article>
-				<h3 className="title">{story.title}</h3>
-				<div className="abstract">{story.abstract}</div>
-			</article>
-		});
 		return <>
-			<h2>小國主義 (Smallcountrilism)</h2>
-			<section class="articles">
-				{stories}
+			<h2>小國主義 - Smallcountrilism</h2>
+			<div className="description">身在台灣的我們，看起來一點都不偉大。然而，我們始終相信，堅強自信的人民，終究能彼此團結，共同撐起一個令人自豪的國家。</div>
+			<section className="imagery">
+				<div className="logo">
+					<img src="/images/logo.png" />
+				</div>
+				<div className="text">
+					貓與獅影 - 天生具有神秘色彩的動物。身段柔軟，卻不失莊嚴。引人注目，但又有種無法靠近的距離感。
+				</div>
 			</section>
 		</>;
 	}

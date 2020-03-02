@@ -2,8 +2,8 @@ nav>.headline{
 	color:var(--nav-headline-color)
 }
 nav>.chapters{
-	line-height:40px;
-	margin-top:15px;
+	line-height:45px;
+	margin-top:20px;
 }
 nav>.chapters>.chapter{
 	display:block;
