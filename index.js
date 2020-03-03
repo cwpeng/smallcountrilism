@@ -93,28 +93,40 @@ app.get("/mgr/", function(req, res){
 	res.render("mgr");
 });
 app.get("/", function(req, res){
-	const root=lib.renderer.renderHomePage(datastore).then((data)=>{
+	lib.renderer.renderHomePage(datastore).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
 		res.render("error", {error});
 	});
 });
 app.get("/tag/:tag?", function(req, res){
-	const root=lib.renderer.renderTagPage(datastore, req.params.tag).then((data)=>{
+	if(!req.params.tag){
+		res.redirect("/");
+		return;
+	}
+	lib.renderer.renderTagPage(datastore, req.params.tag).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
 		res.render("error", {error});
 	});
 });
 app.get("/story/:story?", function(req, res){
-	const root=lib.renderer.renderStoryPage(datastore, req.params.story).then((data)=>{
+	if(!req.params.story){
+		res.redirect("/");
+		return;
+	}
+	lib.renderer.renderStoryPage(datastore, req.params.story).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
 		res.render("error", {error});
 	});
 });
 app.get("/chapter/:chapter?", function(req, res){
-	const root=lib.renderer.renderChapterPage(datastore, req.params.chapter).then((data)=>{
+	if(!req.params.chapter){
+		res.redirect("/");
+		return;
+	}
+	lib.renderer.renderChapterPage(datastore, req.params.chapter).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{
 		res.render("error", {error});
