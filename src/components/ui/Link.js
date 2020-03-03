@@ -9,7 +9,7 @@ class Link extends React.Component{
 			href={this.props.href}
 			onClick={(e)=>{this.context.changePage(e, this.props.page);}}
 			className={this.props.className+(this.props.active?" active":"")}
-		>{this.props.text}</a>;
+		>{this.props.children}</a>;
 	}
 }
 Link.contextType=AppContext;

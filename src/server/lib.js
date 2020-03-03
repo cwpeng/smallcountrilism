@@ -12,49 +12,11 @@ const renderHomePage=function(datastore){
 		getChaptersAndTags(datastore).then((results)=>{
 			const chapters=results[0];
 			const tags=results[1];
-			story.list(datastore, {}).then((results)=>{
-				const page={stories:results};
+			story.list(datastore, {}).then((stories)=>{
+				const page={stories};
 				// render
 				const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
 				resolve({root, initData:{chapters, tags, page}});
-			}).catch((error)=>{
-				reject(error);
-			})
-		}).catch((error)=>{
-			reject(error);
-		});
-	});
-/*
-			const chapters=results[0];
-			const tags=results[1];
-			// verify input data
-			// verify chapter
-			if(chapters.findIndex((chapter)=>{
-				return chapter.key===inputs.chapter;
-			})===-1){
-				inputs.chapter=inputs.section=inputs.story=undefined;
-			}
-			// verify section
-			if(sections.findIndex((section)=>{
-				return section.key===inputs.section;
-			})===-1){
-				inputs.section=inputs.story=undefined;
-			}
-			// get story list and story data
-			let promises=[story.list(datastore, inputs)];
-			if(typeof inputs.story!=="undefined"){
-				promises.push(story.get(datastore, inputs.story));
-			}
-			Promise.all(promises).then((results)=>{
-				// build page data
-				const page={
-					...inputs,
-					stories:results[0], // always exists
-					storyData:results[1] // maybe undefined
-				};
-				// render
-				const root=ReactDOMServer.renderToString(<App chapters={chapters} sections={sections} page={page} />);
-				resolve({root, initData:{chapters, sections, page}});
 			}).catch((error)=>{
 				reject(error);
 			});
@@ -62,8 +24,47 @@ const renderHomePage=function(datastore){
 			reject(error);
 		});
 	});
-*/
+};
+const renderChapterPage=function(datastore, chapter){
+	return new Promise((resolve, reject)=>{
+		getChaptersAndTags(datastore).then((results)=>{
+			const chapters=results[0];
+			const tags=results[1];
+			story.list(datastore, {chapter}).then((stories)=>{
+				const page={chapter, stories};
+				// render
+				const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
+				resolve({root, initData:{chapters, tags, page}});
+			}).catch((error)=>{
+				reject(error);
+			});
+		}).catch((error)=>{
+			reject(error);
+		});
+	});
+};
+const renderStoryPage=function(datastore, storyKey){
+	return new Promise((resolve, reject)=>{
+		getChaptersAndTags(datastore).then((results)=>{
+			const chapters=results[0];
+			const tags=results[1];
+			story.get(datastore, storyKey).then((storyData)=>{
+				story.list(datastore, {chapter:storyData.chapter}).then((stories)=>{
+					const page={story:storyKey, stories, storyData};
+					// render
+					const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
+					resolve({root, initData:{chapters, tags, page}});
+				}).catch((error)=>{
+					reject(error);
+				});
+			}).catch((error)=>{
+				reject(error);
+			});
+		}).catch((error)=>{
+			reject(error);
+		});
+	});
 };
 const dao={chapter, tag, story};
-const renderer={renderHomePage};
+const renderer={renderHomePage, renderChapterPage, renderStoryPage};
 export {renderer, dao};

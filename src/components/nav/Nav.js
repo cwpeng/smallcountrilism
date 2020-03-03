@@ -7,23 +7,28 @@ class Nav extends React.Component{
 	}
 	render(){
 		let chapters=this.context.chapters.map((chapter)=>{
+			let active;
+			if(this.context.page.chapter){
+				active=chapter.key===this.context.page.chapter;
+			}else if(this.context.page.storyData){
+				active=chapter.key===this.context.page.storyData.chapter;
+			}
 			return <Link
-				active={chapter.key===this.context.page.chapter}
-				href={"/"+chapter.key}
+				active={active}
+				href={"/chapter/"+chapter.key}
 				page={{chapter:chapter.key}}
 				className="chapter"
 				key={chapter.key}
-				text={chapter.title}
-			/>;
+			>{chapter.title}</Link>;
 		});
 		return <nav>
-			<h1 className="headline"><Link
+			<h1 className="headline">
+				<Link
 					active={!this.context.page.chapter}
 					href="/"
 					page={{chapter:undefined, section:undefined, story:undefined}}
 					className=""
-					text="小國主義"
-				/>
+				>小國主義</Link>
 			</h1>
 			<div className="chapters">
 				{chapters}

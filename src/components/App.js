@@ -12,7 +12,6 @@ class App extends React.Component{
 			<AppContextInterface {...this.props}>
 				<Nav/>
 				<Main/>
-				<footer>Footer</footer>
 			</AppContextInterface>
 		</div>;
 	}

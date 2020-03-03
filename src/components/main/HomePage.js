@@ -12,7 +12,10 @@ class HomePage extends React.Component{
 					<img src="/images/logo.png" />
 				</div>
 				<div className="text">
-					貓與獅影 - 天生具有神秘色彩的動物。身段柔軟，卻不失莊嚴。引人注目，但又有種無法靠近的距離感。
+					<div>貓與獅影 - 天生具有神秘色彩的動物。身段柔軟，卻不失莊嚴。引人注目，但又有種無法靠近的距離感。</div>
+					<div className="facebook">
+						<img src="/images/facebook.png" /> 追蹤我們
+					</div>
 				</div>
 			</section>
 		</>;

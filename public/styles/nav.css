@@ -11,3 +11,13 @@ nav>.chapters>.chapter{
 nav>.chapters>.active{
 	color:var(--nav-color-active)
 }
+@media (max-width:800px){
+	nav>.chapters{
+		line-height:normal;
+		margin-top:0px;
+		display:flex;margin-left:10px;
+	}
+	nav>.chapters>.chapter{
+		display:block;padding:0px 5px;
+	}
+}

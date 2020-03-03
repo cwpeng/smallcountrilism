@@ -26,7 +26,7 @@ class AppContextInterface extends React.Component{
 		let url="/";
 		let title="小國主義";
 		if(page.chapter){
-			url+=page.chapter;
+			url+="chapter/"+page.chapter;
 			title=page.chapter+" | "+title;
 		}else if(page.tag){
 			url+="tag/"+page.tag;

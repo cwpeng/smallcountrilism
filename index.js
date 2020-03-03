@@ -113,7 +113,7 @@ app.get("/story/:story?", function(req, res){
 		res.render("error", {error});
 	});
 });
-app.get("/:chapter?", function(req, res){
+app.get("/chapter/:chapter?", function(req, res){
 	const root=lib.renderer.renderChapterPage(datastore, req.params.chapter).then((data)=>{
 		res.render("index", data);
 	}).catch((error)=>{

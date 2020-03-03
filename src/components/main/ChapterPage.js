@@ -7,27 +7,21 @@ class ChapterPage extends React.Component{
 	}
 	render(){
 		const stories=this.props.stories.map((story)=>{
-			return <article key={story.key}>
-				<h3 className="title">{story.title}</h3>
-				<div className="abstract">{story.abstract}</div>
-			</article>
-		});
-		/*
-		const stories=this.props.stories.map((story)=>{
 			return <Link
+				key={story.key}
 				active={false}
 				href={"/story/"+story.key}
 				page={{story:story.key}}
 				className="story"
-				key={story.key}
-				text={story.title}
-			/>;
+			>
+				<h3 className="title">{story.title}</h3>
+				<div className="abstract">{story.abstract}</div>
+			</Link>
 		});
-		*/
 		return <>
 			<h2>{this.props.chapter.title}</h2>
 			<div className="description">{this.props.chapter.description}</div>
-			<section className="articles">
+			<section className="stories">
 				{stories}
 			</section>
 		</>;
