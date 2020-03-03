@@ -17,6 +17,7 @@ a{
 }
 #root{
 	--main-color:#222222;
+	--link-color:#88aabb;
 
 	--nav-headline-color:#ffffff;
 	--nav-bg-color:#222222;--nav-color:#888888;--nav-color-active:#eeeeee;
@@ -30,6 +31,7 @@ nav{
 	padding:10px;box-sizing:border-box;
 }
 main{
+	max-width:1350px;
 	color:var(--main-color);margin-left:var(--nav-width);
 	padding:10px 20px;padding-bottom:40px;box-sizing:border-box;
 }
@@ -46,7 +48,7 @@ main{
 }
 /* .description */
 main>.description{
-	margin-top:10px;margin-bottom:25px;
+	margin-top:10px;margin-bottom:30px;
 	line-height:1.5em;
 }
 /* section.imagery in HomePage */
@@ -64,8 +66,10 @@ main>section.imagery>.text{
 	line-height:1.5em;
 }
 main>section.imagery>.text>.facebook{
+	display:block;
 	margin-top:40px;display:flex;align-items:center;
 	width:50%;min-width:240px;border:1px solid black;
+	cursor:pointer;
 }
 main>section.imagery>.text>.facebook>img{
 	width:40px;height:40px;margin-right:10px;
@@ -86,13 +90,16 @@ main>section.imagery>.text>.facebook>img{
 }
 /* section.stories in ChapterPage */
 main>section.stories>.story{
-	display:block;
+	display:block;margin-bottom:30px;
 }
 main>section.stories>.story>.title{
 	margin-bottom:10px;
 }
 main>section.stories>.story>.abstract{
-	line-height:1.5em;
+	line-height:1.5em;margin-bottom:10px;
+}
+main>section.stories>.story>.readmore{
+	color:var(--link-color);
 }
 /* article.story in StoryPage */
 main>article.story>.title{

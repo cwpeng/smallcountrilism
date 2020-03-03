@@ -16,6 +16,7 @@ class ChapterPage extends React.Component{
 			>
 				<h3 className="title">{story.title}</h3>
 				<div className="abstract">{story.abstract}</div>
+				<div className="readmore">繼續閱讀 ...</div>
 			</Link>
 		});
 		return <>

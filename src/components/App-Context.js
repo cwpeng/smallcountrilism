@@ -18,7 +18,12 @@ class AppContextInterface extends React.Component{
 	popFromHistoryState(e){
 		const page=e.state;
 		if(page!==null){
-			this.setState({page});
+			// keep page state without title attribute
+			const title=page.title;
+			delete page.title;
+			this.setState({page}, function(){
+				window.document.title=title;
+			});
 		}
 	}
 	pushToHistoryState(){
@@ -26,15 +31,20 @@ class AppContextInterface extends React.Component{
 		let url="/";
 		let title="小國主義";
 		if(page.chapter){
-			url+="chapter/"+page.chapter;
-			title=page.chapter+" | "+title;
+			const chapter=this.state.chapters.find((chapter)=>{
+				return chapter.key===page.chapter;
+			});
+			url+="chapter/"+chapter.key;
+			title=chapter.title+" - "+title;
 		}else if(page.tag){
 			url+="tag/"+page.tag;
-			title=page.tag+" | "+title;
+			title=page.tag+" - "+title;
 		}else if(page.story){
 			url+="story/"+page.story;
-			title=page.story+" | "+title;
+			title=page.storyData.title+" - "+title;
 		}
+		// add title to page only for history state tracking
+		window.document.title=page.title=title;
 		window.history.pushState(page, title, url);
 	}
 	changePage(e, page){

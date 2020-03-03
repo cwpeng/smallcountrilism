@@ -32,26 +32,27 @@ const renderHomePage=function(datastore){
 		});
 	});
 };
-const renderChapterPage=function(datastore, chapter){
+const renderChapterPage=function(datastore, chapterKey){
 	return new Promise((resolve, reject)=>{
 		getChaptersAndTags(datastore).then((results)=>{
 			const chapters=results[0];
 			const tags=results[1];
 			// verify chapter
-			if(chapters.findIndex((item)=>{
-				return item.key===chapter;
-			})===-1){
+			const chapter=chapters.find((item)=>{
+				return item.key===chapterKey;
+			});
+			if(!chapter){
 				reject("Chapter Not Found");
 				return;
 			}
-			story.list(datastore, {chapter}).then((stories)=>{
-				const page={chapter, stories};
+			story.list(datastore, {chapter:chapter.key}).then((stories)=>{
+				const page={chapter:chapter.key, stories};
 				// render
 				const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
 				resolve({
 					head:{
-						title:"小國主義",
-						description:"小國主義是用來挽救、鞏固、強化人民信心的主義。喚醒人民對國家，特別是小型國家的認同，進而孕育出精緻堅韌的力量。"
+						title:chapter.title+" - 小國主義",
+						description:chapter.description+"小國主義是用來挽救、鞏固、強化人民信心的主義。"
 					},
 					root,
 					initData:{chapters, tags, page}
@@ -80,8 +81,8 @@ const renderStoryPage=function(datastore, storyKey){
 					const root=ReactDOMServer.renderToString(<App chapters={chapters} tags={tags} page={page} />);
 					resolve({
 						head:{
-							title:"小國主義",
-							description:"小國主義是用來挽救、鞏固、強化人民信心的主義。喚醒人民對國家，特別是小型國家的認同，進而孕育出精緻堅韌的力量。"
+							title:storyData.title+" - 小國主義",
+							description:storyData.abstract+"小國主義是用來挽救、鞏固、強化人民信心的主義。"
 						},
 						root,
 						initData:{chapters, tags, page}
