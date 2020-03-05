@@ -50,6 +50,13 @@ class AppContextInterface extends React.Component{
 		window.history.pushState(page, title, url);
 		// scroll to top of the page if in story page
 		window.document.documentElement.scrollTop=0;
+		// send event to Google Analytics
+		if(gtag){
+			gtag("event", "pageview", {
+				"event_category": title,
+				"event_label": url
+			});
+		}
 	}
 	changePage(e, page){
 		e.preventDefault();
