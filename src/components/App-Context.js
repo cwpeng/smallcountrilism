@@ -1,9 +1,11 @@
 import React from "react";
+import Loading from "./ui/Loading.js";
 const AppContext=React.createContext();
 class AppContextInterface extends React.Component{
 	constructor(props){
 		super(props);
-		this.state=props;
+		this.state={...props, loading:false};
+
 		this.popFromHistoryState=this.popFromHistoryState.bind(this);
 		this.pushToHistoryState=this.pushToHistoryState.bind(this);
 		this.changePage=this.changePage.bind(this);
@@ -46,6 +48,8 @@ class AppContextInterface extends React.Component{
 		// add title to page only for history state tracking
 		window.document.title=page.title=title;
 		window.history.pushState(page, title, url);
+		// scroll to top of the page if in story page
+		window.document.documentElement.scrollTop=0;
 	}
 	changePage(e, page){
 		e.preventDefault();
@@ -64,17 +68,20 @@ class AppContextInterface extends React.Component{
 			args="";
 		}
 		// wait networking and set state
+		this.setState({loading:true});
 		fetch("/api/story?"+args).then((response)=>{
 			return response.json();
 		}).then((result)=>{
 			page.stories=result.data.stories; // always exists
 			page.storyData=result.data.storyData; // maybe undefined
-			this.setState({page}, this.pushToHistoryState);
+			this.setState({loading:false, page}, this.pushToHistoryState);
 		});
 	}
 	render(){
+		const loading=this.state.loading?<Loading/>:undefined;
 		return <AppContext.Provider value={{...this.state, changePage:this.changePage}}>
 			{this.props.children}
+			{loading}
 		</AppContext.Provider>;
 	}
 }

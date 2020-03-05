@@ -14,8 +14,8 @@ nav>.chapters>.active{
 @media (max-width:800px){
 	nav>.chapters{
 		line-height:normal;
-		margin-top:0px;
-		display:flex;margin-left:10px;
+		margin-top:0px;margin-left:10px;
+		display:flex;flex:auto;justify-content:flex-end;
 	}
 	nav>.chapters>.chapter{
 		display:block;padding:0px 5px;

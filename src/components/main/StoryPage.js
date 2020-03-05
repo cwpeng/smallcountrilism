@@ -11,12 +11,16 @@ class StoryPage extends React.Component{
 			return <React.Fragment key={index}>{paragraph}<br/></React.Fragment>;
 		});
 		return <>
-			<h2>{this.props.chapter.title}</h2>
-			<div className="description">{this.props.chapter.description}</div>
+			<h2>{storyData.title}</h2>
 			<article className="story">
-				<h3 className="title">{storyData.title}</h3>
 				<div className="content">{content}</div>
 			</article>
+			<Link
+				active={false}
+				href={"/chapter/"+this.props.chapter.key}
+				page={{chapter:this.props.chapter.key}}
+				className="chapter"
+			>{this.props.chapter.title+" ..."}</Link>
 		</>;
 	}
 }
