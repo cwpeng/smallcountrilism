@@ -1,4 +1,5 @@
 import React from "react";
+import StoryList from "../ui/StoryList.js";
 class HomePage extends React.Component{
 	constructor(props){
 		super(props);
@@ -18,6 +19,7 @@ class HomePage extends React.Component{
 					</a>
 				</div>
 			</section>
+			<StoryList stories={this.props.stories} />
 		</>;
 	}
 }
