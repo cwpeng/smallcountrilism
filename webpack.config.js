@@ -1,7 +1,7 @@
 const path=require("path");
 const serverConfig={
 	target:"node",
-	mode:"development",
+	mode:"production",
 	watch:false,
 	entry:"./src/server/lib.js",
 	output:{
@@ -26,7 +26,7 @@ const serverConfig={
 };
 const clientConfig={
 	target:"web",
-	mode:"development",
+	mode:"production",
 	watch:false,
 	entry:{
 		index:"./src/client/index.js",

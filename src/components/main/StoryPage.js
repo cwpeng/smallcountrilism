@@ -12,7 +12,14 @@ class StoryPage extends React.Component{
 			href:"https://smallcountrilism.pada-x.com/story/"+this.props.storyKey,
 			quote:this.props.storyData.abstract,
 			hashtag:"#小國主義"
-		}, function(response){});
+		}, (response)=>{
+			if(response){
+				gtag("event", "share-fb", {
+					"event_category":this.props.storyData.title,
+					"event_label":"/story/"+this.props.storyKey
+				});
+			}
+		});
 	}
 	render(){
 		const storyData=this.props.storyData;

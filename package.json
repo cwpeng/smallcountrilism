@@ -1,5 +1,5 @@
 {
-  "name": "mighty-small-country",
+  "name": "smallcountrilism",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "node index.js",
     "build": "webpack"
   },
-  "author": "",
+  "author": "Chao-Wei Peng",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/datastore": "^3.0.1",
