@@ -75,6 +75,15 @@ main.story-page>.chapter{
 	margin-top:30px;margin-bottom:10px;
 	line-height:1.5em;color:var(--link-color);
 }
+main.story-page>.facebook{
+	display:block;
+	margin-top:30px;display:flex;align-items:center;
+	width:40%;min-width:240px;border:1px solid black;
+	cursor:pointer;
+}
+main.story-page>.facebook>img{
+	width:40px;height:40px;margin-right:10px;
+}
 /* section.imagery in HomePage */
 main>section.imagery{
 	display:flex;width:100%;max-width:1000px;

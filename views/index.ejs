@@ -16,6 +16,18 @@ function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "UA-38123928-12");
 </script>
+<!-- Facebook SDK -->
+<script>
+window.fbAsyncInit = function() {
+	FB.init({
+		appId            : "508367763198305",
+		autoLogAppEvents : true,
+		xfbml            : true,
+		version          : "v6.0"
+	});
+};
+</script>
+<script async defer src="https://connect.facebook.net/zh_TW/sdk.js"></script>
 <script>
 window.__INIT_DATA__=<%- JSON.stringify(initData) %>;
 </script>

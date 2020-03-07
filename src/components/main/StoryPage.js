@@ -4,6 +4,15 @@ import Link from "../ui/Link.js";
 class StoryPage extends React.Component{
 	constructor(props){
 		super(props);
+		this.share=this.share.bind(this);
+	}
+	share(){
+		FB.ui({
+			method:"share",
+			href:"https://smallcountrilism.pada-x.com/story/"+this.props.storyKey,
+			quote:this.props.storyData.abstract,
+			hashtag:"#小國主義"
+		}, function(response){});
 	}
 	render(){
 		const storyData=this.props.storyData;
@@ -20,7 +29,10 @@ class StoryPage extends React.Component{
 				href={"/chapter/"+this.props.chapter.key}
 				page={{chapter:this.props.chapter.key}}
 				className="chapter"
-			>{this.props.chapter.title+" ..."}</Link>
+			>{"更多"+this.props.chapter.title+" ..."}</Link>
+			<div onClick={this.share} className="facebook">
+				<img src="/images/facebook.png" /> 分享這篇文章
+			</div>
 		</>;
 	}
 }
